@@ -119,7 +119,7 @@ def registrar():
         enviar_correo_confirmacion(existente.nombre, existente.correo, existente.token)
         return render_template("revisa_correo.html", correo=correo)
 
-    nuevo = Registro(nombre=nombre, correo=correo, token=uuid.uuid4().hex)
+    nuevo = Registro(nombre=nombre, empresa=empresa, telefono=telefono, correo=correo, token=uuid.uuid4().hex)
     db.session.add(nuevo)
     db.session.commit()
 
