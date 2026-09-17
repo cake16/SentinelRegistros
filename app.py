@@ -64,7 +64,26 @@ def enviar_correo_confirmacion(destinatario_nombre, destinatario_correo, token):
         "to": [{"email": destinatario_correo, "name": destinatario_nombre}],
         "subject": "Confirma tu registro",
         "htmlContent": f"""
-            <p>Hola {destinatario_nombre},</p>
+            <p>Apreciable {destinatario_nombre},</p>
+            <p>En nombre de todo el equipo de Sentinel TI, queremos darte las gracias por tomarte el tiempo de visitar 
+            nuestro stand y registrarte con nosotros durante el Dell Forum 2026.</p>
+            <br>
+
+            <p>Fue un verdadero placer conversar contigo. Esperamos que la información sobre nuestras soluciones de 
+            infraestructura y servicios te haya resultado valiosa. Además, te confirmamos que con tu registro 
+            ¡Ya estás participando en nuestra rifa!. El sorteo se llevará a cabo al final del día de hoy, así que mantente 
+            atento para descubrir si eres uno de los afortunados ganadores. ¡Te deseamos mucha suerte!</p>
+            <br>
+
+            <p>Si tienes alguna consulta adicional o te gustaría agendar una reunión para profundizar en cómo podemos apoyar 
+            tus proyectos, no dudes en contactarte al correo: contacto@sentinelti.com.mx.</p>
+            <br>
+
+            <p>¡Mucho éxito y gracias nuevamente por acompañarnos!</p>
+            <br>
+            <p>Saludos cordiales</p>
+            <p>Equipo de Sentinel TI</p>
+            <br>
             <p>Gracias por registrarte. Para confirmar tu correo, da clic en el siguiente enlace:</p>
             <p><a href="{link_confirmacion}">{link_confirmacion}</a></p>
             <p>Este enlace es válido por {TOKEN_EXPIRA_HORAS} horas.</p>
