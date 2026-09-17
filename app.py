@@ -6,7 +6,7 @@ import requests
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="sources", static_url_path="/sources")
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "cambia-esta-clave-en-produccion")
 
 # En local usa SQLite; en Render/producción define DATABASE_URL (Postgres de Neon/Supabase).
@@ -105,7 +105,7 @@ def registrar():
         flash("Todos los campos son obligatorios.")
         return redirect(url_for("index"))
 
-    existente = Registro.query.filter_by(correo=correo).first()
+    existente = Registro.query.filter_by(correo=correo, telefono=telefono).first()
 
     if existente and existente.confirmado:
         flash("Ese correo ya está registrado y confirmado.")
