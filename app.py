@@ -124,19 +124,20 @@ def registrar():
         flash("Todos los campos son obligatorios.")
         return redirect(url_for("index"))
 
-    existente = Registro.query.filter_by(correo=correo, telefono=telefono).first()
+    existente = Registro.query.filter(
+        (Registro.correo == correo) | (Registro.telefono == telefono)
+    ).first()
 
     if existente and existente.confirmado:
-        flash("Ese correo ya está registrado y confirmado.")
+        if existente.correo == correo:
+            flash("Ese correo ya está registrado y confirmado.")
+        else:
+            flash("Ese teléfono ya está registrado con otro correo.")
         return redirect(url_for("index"))
 
     if existente and not existente.confirmado:
-        # Ya se había registrado pero no confirmó: reenviamos el correo con nuevo token.
-        existente.token = uuid.uuid4().hex
-        existente.creado_en = datetime.utcnow()
-        db.session.commit()
-        enviar_correo_confirmacion(existente.nombre, existente.correo, existente.token)
-        return render_template("revisa_correo.html", correo=correo)
+        flash("Ya tienes un registro pendiente por confirmar. Revisa tu correo.")
+        return redirect(url_for("index"))
 
     nuevo = Registro(nombre=nombre, empresa=empresa, telefono=telefono, correo=correo, token=uuid.uuid4().hex)
     db.session.add(nuevo)
